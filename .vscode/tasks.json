@@ -5,6 +5,46 @@
 			"label": "init-git-caja-susinos",
 			"type": "shell",
 			"command": "git init && git checkout -b main && git remote add origin https://github.com/Hectorgs1988/Caja-Susinos.git && git add . && git commit -m \"feat: MVP caja barra con React + Vite\""
+		},
+		{
+			"label": "push-github-caja-susinos",
+			"type": "shell",
+			"command": "git remote -v && git push -u origin main"
+		},
+		{
+			"label": "cleanup-node-modules-git",
+			"type": "shell",
+			"command": "printf \"node_modules/\\ndist/\\n.DS_Store\\n\" > .gitignore && git rm -r --cached node_modules && git add .gitignore && git commit -m \"chore: ignore node_modules and dist\" && git push"
+		},
+		{
+			"label": "verify-git-sync",
+			"type": "shell",
+			"command": "git status -sb && git log --oneline -2 && git remote -v"
+		},
+		{
+			"label": "verify-remote-head",
+			"type": "shell",
+			"command": "git ls-remote --heads origin main"
+		},
+		{
+			"label": "verify-local-head",
+			"type": "shell",
+			"command": "git rev-parse HEAD"
+		},
+		{
+			"label": "create-develop-branch",
+			"type": "shell",
+			"command": "git checkout -b develop && git push -u origin develop && git branch --show-current && git branch -a"
+		},
+		{
+			"label": "verify-develop-tracking",
+			"type": "shell",
+			"command": "git status -sb && git for-each-ref --format='%(refname:short) -> %(upstream:short)' refs/heads/develop refs/heads/main"
+		},
+		{
+			"label": "publish-develop-baseline",
+			"type": "shell",
+			"command": "git checkout develop && git add -A && if git diff --cached --quiet; then echo \"NO_CHANGES_TO_COMMIT\"; else git commit -m \"chore: baseline develop v1.0.0-alpha.0\"; fi && git push origin develop && if git rev-parse -q --verify \"refs/tags/V1.0.0-alpha.0\" >/dev/null; then echo \"TAG_ALREADY_EXISTS\"; else git tag -a V1.0.0-alpha.0 -m \"V1.0.0-alpha.0\"; fi && git push origin V1.0.0-alpha.0 && git status -sb && git show --no-patch --oneline V1.0.0-alpha.0"
 		}
 	]
 }
