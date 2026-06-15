@@ -82,7 +82,7 @@ export default function App() {
         <div className="app-shell">
             <header className="topbar">
                 <div className="brand-wrap">
-                    <div className="brand-badge">MOS</div>
+                    <div className="brand-badge"></div>
                     <div>
                         <p className="brand-kicker">Pena Los Mosquitos</p>
                         <h1>Susinos del Paramo</h1>
@@ -136,12 +136,26 @@ export default function App() {
 
             <aside className={`ticket ${isTicketOpen ? "is-open" : ""}`}>
                 <button
-                    className="ticket-handle"
+                    className="ticket-grab"
+                    onClick={() => setTicketOpen((prev) => !prev)}
+                    type="button"
+                    aria-expanded={isTicketOpen}
+                    aria-label={isTicketOpen ? "Cerrar comanda" : "Abrir comanda"}
+                >
+                    <span />
+                </button>
+
+                <button
+                    className="ticket-summary"
                     onClick={() => setTicketOpen((prev) => !prev)}
                     type="button"
                     aria-expanded={isTicketOpen}
                 >
-                    Ver comanda
+                    <div>
+                        <p className="ticket-kicker">Ver comanda</p>
+                        <p className="ticket-items">{totalItems} articulos</p>
+                    </div>
+                    <p className="ticket-total">{toCurrency(totalPrice)} EUR</p>
                 </button>
 
                 <div className="ticket-body">
@@ -155,17 +169,11 @@ export default function App() {
                                 </li>
                             ))
                         ) : (
-                            <li>
+                            <li className="empty">
                                 <span className="name">Aun no hay productos</span>
-                                <span>0,00 EUR</span>
                             </li>
                         )}
                     </ul>
-
-                    <div className="ticket-total-row">
-                        <p>{totalItems} articulos</p>
-                        <p className="ticket-total">{toCurrency(totalPrice)} EUR</p>
-                    </div>
 
                     <div className="ticket-actions">
                         <button className="ghost" onClick={clearOrder} type="button">
