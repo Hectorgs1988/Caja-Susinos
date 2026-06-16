@@ -353,6 +353,206 @@ h1 {
     color: #737988;
 }
 
+.admin-panel {
+    margin-top: 6px;
+}
+
+.admin-segment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #282b34;
+    margin-bottom: 12px;
+}
+
+.admin-segment .segment-btn {
+    font-size: 1.08rem;
+    padding: 8px 4px 10px;
+}
+
+.admin-add-row {
+    display: grid;
+    grid-template-columns: 1.35fr 0.75fr 0.75fr 0.65fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.admin-input {
+    width: 100%;
+    border: 1px solid #2c3039;
+    border-radius: 10px;
+    background: #101318;
+    color: #e4e6ea;
+    padding: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+}
+
+.admin-input:focus {
+    outline: 1px solid #766124;
+    border-color: #766124;
+}
+
+.admin-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.admin-list > li {
+    border: 1px solid #22262f;
+    background: #0f1217;
+    border-radius: 12px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.admin-list-main {
+    min-width: 0;
+}
+
+.admin-product-name {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #ebedf0;
+}
+
+.admin-product-meta {
+    margin: 2px 0 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    color: #8c92a0;
+    text-transform: capitalize;
+}
+
+.admin-list-actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 6px;
+}
+
+.admin-action {
+    border: 1px solid #2f3540;
+    background: #191d25;
+    color: #c7ccd8;
+    border-radius: 9px;
+    padding: 6px 8px;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.admin-action.primary {
+    background: linear-gradient(180deg, #ecd15f 0%, #c3a433 100%);
+    color: #171309;
+    border-color: #8e7424;
+}
+
+.admin-action.danger {
+    border-color: #5a2f33;
+    background: #2a171a;
+    color: #f0b7bd;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.admin-stats article {
+    border: 1px solid #242933;
+    background: #10141b;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.admin-stats p {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.74rem;
+    color: #8c92a0;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.admin-stats strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.25rem;
+    color: var(--gold-soft);
+    line-height: 1;
+}
+
+.admin-orders {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.admin-orders > li {
+    border: 1px solid #22262f;
+    background: #0f1217;
+    border-radius: 12px;
+    padding: 9px;
+}
+
+.admin-orders > li.empty {
+    text-align: center;
+    color: #7b818f;
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+}
+
+.admin-order-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.79rem;
+    color: #d4d8e1;
+}
+
+.admin-order-head p {
+    margin: 0;
+}
+
+.admin-order-meta {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.76rem;
+    color: #8d93a0;
+}
+
+.admin-orders > li > ul {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 5px;
+}
+
+.admin-orders > li > ul > li {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    color: #d6d9e0;
+    border: 1px solid #20242d;
+    border-radius: 8px;
+    padding: 6px 7px;
+}
+
 @media (max-width: 560px) {
     .app-shell {
         padding: 8px 10px 198px;
@@ -397,5 +597,17 @@ h1 {
     .ghost,
     .cta {
         font-size: 1.05rem;
+    }
+
+    .admin-add-row {
+        grid-template-columns: 1fr 0.8fr;
+    }
+
+    .admin-list > li {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-stats {
+        grid-template-columns: 1fr;
     }
 }
