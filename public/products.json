@@ -1,18 +1,33 @@
 {
   "bebida": [
     { "id": "cerveza", "name": "Cerveza", "price": 1.5 },
-    { "id": "tinto", "name": "Vino Tinto", "price": 1.5 },
-    { "id": "agua", "name": "Agua", "price": 0.90 },
     { "id": "refresco", "name": "Refresco", "price": 1.5 },
-    { "id": "zumo", "name": "Zumo", "price": 1.5 },
-    { "id": "calimocho", "name": "Vaso calimocho", "price": 2.5 }
+    { "id": "zumo", "name": "Zumo", "price": 1.8 },
+    { "id": "batido", "name": "Batido", "price": 1.8 },
+    { "id": "mosto-pequeño", "name": "Mosto pequeño", "price": 0.90 },
+    { "id": "mosto-grande", "name": "Mosto grande", "price": 1.5 },
+    { "id": "agua", "name": "Agua", "price": 0.90 },
+    { "id": "vino", "name": "Vino", "price": 1.5 },
+    { "id": "vermut", "name": "Vermut", "price": 2.10 },
+    { "id": "marianito", "name": "Marianito", "price": 1.5 },
+    { "id": "cafe", "name": "Café", "price": 1.5 },
+    { "id": "cafe-bailys", "name": "Café Baileys", "price": 1.80 },
+    { "id": "vaso-chupito", "name": "Vaso chupito", "price": 1.50 },
+    { "id": "vaso-chupito-especial", "name": "Vaso chupito especial", "price": 1.80 },
+    { "id": "chupito-hielo", "name": "Chupito hielo", "price": 2.10 },
+    { "id": "chupito-hielo-especial", "name": "Chupito hielo especial", "price": 2.70 },
+    { "id": "calimocho-vaso", "name": "Calimocho vaso", "price": 2.70 },
+    { "id": "calimocho-vaso-especial", "name": "Calimocho vaso especial", "price": 3.30 },
+    { "id": "calimocho-cachi", "name": "Calimocho cachi", "price": 4.50 },
+    { "id": "calimocho-cachi-especial", "name": "Calimocho cachi especial", "price": 6.0 },
+    { "id": "cubata", "name": "Cubata", "price": 4.50 }
   ],
   "comida": [
-    { "id": "pincho-tortilla", "name": "Pincho tortilla", "price": 2.0 },
-    { "id": "pincho-lomo", "name": "Pincho lomo", "price": 2.4 },
-    { "id": "gominolas", "name": "Golosinas", "price": 1.2 },
+    { "id": "aceitunas", "name": "Aceitunas", "price": 1.5 },
+    { "id": "banderillas", "name": "Banderillas", "price": 0.50 },
     { "id": "bolsa-patatas", "name": "Bolsa patatas", "price": 1.5 },
-    { "id": "sandwich-mixto", "name": "Sandwich mixto", "price": 3.0 },
-    { "id": "chorizo", "name": "Pincho chorizo", "price": 2.2 }
+    { "id": "bolsas", "name": "Bolsas", "price": 0.70 },
+    { "id": "1-gominola", "name": "1 Gominola", "price": 0.10 },
+    { "id": "2-gominola", "name": "2 Gominolas", "price": 0.15 }
   ]
 }
