@@ -2,7 +2,7 @@
   "bebida": [
     { "id": "cerveza", "name": "Cerveza", "price": 1.5 },
     { "id": "tinto", "name": "Vino Tinto", "price": 1.5 },
-    { "id": "agua", "name": "Agua", "price": 1.0 },
+    { "id": "agua", "name": "Agua", "price": 0.90 },
     { "id": "refresco", "name": "Refresco", "price": 1.5 },
     { "id": "zumo", "name": "Zumo", "price": 1.5 },
     { "id": "calimocho", "name": "Vaso calimocho", "price": 2.5 }
