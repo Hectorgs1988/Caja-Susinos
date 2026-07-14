@@ -1,0 +1,18 @@
+{
+  "bebida": [
+    { "id": "cerveza", "name": "Cerveza", "price": 1.5 },
+    { "id": "tinto", "name": "Vino Tinto", "price": 1.5 },
+    { "id": "agua", "name": "Agua", "price": 1.0 },
+    { "id": "refresco", "name": "Refresco", "price": 1.5 },
+    { "id": "zumo", "name": "Zumo", "price": 1.5 },
+    { "id": "calimocho", "name": "Vaso calimocho", "price": 2.5 }
+  ],
+  "comida": [
+    { "id": "pincho-tortilla", "name": "Pincho tortilla", "price": 2.0 },
+    { "id": "pincho-lomo", "name": "Pincho lomo", "price": 2.4 },
+    { "id": "gominolas", "name": "Golosinas", "price": 1.2 },
+    { "id": "bolsa-patatas", "name": "Bolsa patatas", "price": 1.5 },
+    { "id": "sandwich-mixto", "name": "Sandwich mixto", "price": 3.0 },
+    { "id": "chorizo", "name": "Pincho chorizo", "price": 2.2 }
+  ]
+}

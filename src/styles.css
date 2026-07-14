@@ -357,6 +357,27 @@ h1 {
     margin-top: 6px;
 }
 
+.admin-auth-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border: 1px solid #2a2f39;
+    border-radius: 10px;
+    background: #0f1319;
+}
+
+.admin-auth-row p {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9097a6;
+}
+
 .admin-segment {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -551,6 +572,57 @@ h1 {
     border: 1px solid #20242d;
     border-radius: 8px;
     padding: 6px 7px;
+}
+
+.auth-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 3, 5, 0.8);
+    display: grid;
+    place-items: center;
+    z-index: 40;
+    padding: 16px;
+}
+
+.auth-card {
+    width: min(420px, 100%);
+    border: 1px solid #313744;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #11141a 0%, #0d1015 100%);
+    padding: 14px;
+}
+
+.auth-card h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gold-soft);
+}
+
+.auth-card p {
+    margin: 6px 0 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.83rem;
+    color: #99a0ae;
+}
+
+.auth-card form {
+    display: grid;
+    gap: 8px;
+}
+
+.auth-error {
+    margin: 0;
+    color: #f0b7bd;
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+}
+
+.auth-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
 }
 
 @media (max-width: 560px) {
