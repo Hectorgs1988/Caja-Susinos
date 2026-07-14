@@ -19,30 +19,24 @@ const INITIAL_PRODUCTS = {
     ],
 };
 
-const PRODUCTS_STORAGE_KEY = "caja.products.v1";
 const ORDERS_STORAGE_KEY = "caja.orders.v1";
+const ADMIN_SESSION_KEY = "caja.admin.auth.v1";
+const ADMIN_USER = import.meta.env.VITE_ADMIN_USER || "admin";
+const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS || "susinos123";
 
-function readProductsFromStorage() {
-    try {
-        const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
-        if (!raw) return INITIAL_PRODUCTS;
-
-        const parsed = JSON.parse(raw);
-        if (!parsed || !Array.isArray(parsed.bebida) || !Array.isArray(parsed.comida)) {
-            return INITIAL_PRODUCTS;
-        }
-
-        return {
-            bebida: parsed.bebida.filter(
-                (p) => p && typeof p.id === "string" && typeof p.name === "string" && Number(p.price) >= 0
-            ),
-            comida: parsed.comida.filter(
-                (p) => p && typeof p.id === "string" && typeof p.name === "string" && Number(p.price) >= 0
-            ),
-        };
-    } catch {
+function normalizeProducts(source) {
+    if (!source || !Array.isArray(source.bebida) || !Array.isArray(source.comida)) {
         return INITIAL_PRODUCTS;
     }
+
+    return {
+        bebida: source.bebida.filter(
+            (p) => p && typeof p.id === "string" && typeof p.name === "string" && Number(p.price) >= 0
+        ),
+        comida: source.comida.filter(
+            (p) => p && typeof p.id === "string" && typeof p.name === "string" && Number(p.price) >= 0
+        ),
+    };
 }
 
 function readOrdersFromStorage() {
@@ -85,9 +79,20 @@ export default function App() {
     const [category, setCategory] = useState("bebida");
     const [isTicketOpen, setTicketOpen] = useState(false);
     const [qtyById, setQtyById] = useState({});
-    const [productsByCategory, setProductsByCategory] = useState(readProductsFromStorage);
+    const [productsByCategory, setProductsByCategory] = useState(INITIAL_PRODUCTS);
     const [orders, setOrders] = useState(readOrdersFromStorage);
     const [isAdminOpen, setAdminOpen] = useState(false);
+    const [isAdminAuthenticated, setAdminAuthenticated] = useState(() => {
+        try {
+            return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
+        } catch {
+            return false;
+        }
+    });
+    const [isAuthOpen, setAuthOpen] = useState(false);
+    const [authUser, setAuthUser] = useState("");
+    const [authPass, setAuthPass] = useState("");
+    const [authError, setAuthError] = useState("");
     const [adminTab, setAdminTab] = useState("products");
     const [newProduct, setNewProduct] = useState({
         name: "",
@@ -97,12 +102,44 @@ export default function App() {
     const [editingById, setEditingById] = useState({});
 
     useEffect(() => {
-        localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(productsByCategory));
-    }, [productsByCategory]);
+        let isMounted = true;
+
+        async function loadProducts() {
+            try {
+                const response = await fetch("/products.json", { cache: "no-store" });
+                if (!response.ok) return;
+
+                const parsed = await response.json();
+                if (isMounted) {
+                    setProductsByCategory(normalizeProducts(parsed));
+                }
+            } catch {
+                // Keep fallback INITIAL_PRODUCTS if fetch fails.
+            }
+        }
+
+        loadProducts();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     useEffect(() => {
         localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
     }, [orders]);
+
+    useEffect(() => {
+        try {
+            if (isAdminAuthenticated) {
+                sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+            } else {
+                sessionStorage.removeItem(ADMIN_SESSION_KEY);
+            }
+        } catch {
+            // Ignore storage errors for private mode / blocked storage.
+        }
+    }, [isAdminAuthenticated]);
 
     const allProducts = useMemo(() => {
         return [
@@ -269,6 +306,47 @@ export default function App() {
         setNewProduct((prev) => ({ ...prev, name: "", price: "" }));
     }
 
+    function closeAuthModal() {
+        setAuthOpen(false);
+        setAuthUser("");
+        setAuthPass("");
+        setAuthError("");
+    }
+
+    function handleAdminButton() {
+        if (isAdminOpen) {
+            setAdminOpen(false);
+            return;
+        }
+
+        setTicketOpen(false);
+        if (isAdminAuthenticated) {
+            setAdminOpen(true);
+            return;
+        }
+
+        setAuthOpen(true);
+    }
+
+    function submitAdminLogin(event) {
+        event.preventDefault();
+
+        if (authUser.trim() === ADMIN_USER && authPass === ADMIN_PASS) {
+            setAdminAuthenticated(true);
+            setAdminOpen(true);
+            closeAuthModal();
+            return;
+        }
+
+        setAuthError("Credenciales incorrectas");
+    }
+
+    function logoutAdmin() {
+        setAdminAuthenticated(false);
+        setAdminOpen(false);
+        closeAuthModal();
+    }
+
     return (
         <div className="app-shell">
             <header className="topbar">
@@ -281,10 +359,7 @@ export default function App() {
                 </div>
                 <button
                     className="admin-btn"
-                    onClick={() => {
-                        setAdminOpen((prev) => !prev);
-                        setTicketOpen(false);
-                    }}
+                    onClick={handleAdminButton}
                     type="button"
                 >
                     {isAdminOpen ? "Caja" : "Admin"}
@@ -294,6 +369,12 @@ export default function App() {
             <main className="content">
                 {isAdminOpen ? (
                     <section className="admin-panel" aria-label="Menu admin">
+                        <div className="admin-auth-row">
+                            <p>Sesion admin activa</p>
+                            <button className="admin-action" type="button" onClick={logoutAdmin}>
+                                Cerrar sesion
+                            </button>
+                        </div>
                         <div className="admin-segment">
                             <button
                                 className={`segment-btn ${adminTab === "products" ? "is-active" : ""}`}
@@ -590,6 +671,45 @@ export default function App() {
                         </div>
                     </div>
                 </aside>
+            ) : null}
+
+            {isAuthOpen ? (
+                <div className="auth-backdrop" role="presentation" onClick={closeAuthModal}>
+                    <section className="auth-card" role="dialog" aria-label="Acceso admin" onClick={(e) => e.stopPropagation()}>
+                        <h2>Acceso admin</h2>
+                        <p>Introduce usuario y contrasena para abrir el panel.</p>
+
+                        <form onSubmit={submitAdminLogin}>
+                            <input
+                                className="admin-input"
+                                type="text"
+                                autoComplete="username"
+                                placeholder="Usuario"
+                                value={authUser}
+                                onChange={(event) => setAuthUser(event.target.value)}
+                            />
+                            <input
+                                className="admin-input"
+                                type="password"
+                                autoComplete="current-password"
+                                placeholder="Contrasena"
+                                value={authPass}
+                                onChange={(event) => setAuthPass(event.target.value)}
+                            />
+
+                            {authError ? <p className="auth-error">{authError}</p> : null}
+
+                            <div className="auth-actions">
+                                <button className="admin-action" type="button" onClick={closeAuthModal}>
+                                    Cancelar
+                                </button>
+                                <button className="admin-action primary" type="submit">
+                                    Entrar
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
             ) : null}
         </div>
     );
