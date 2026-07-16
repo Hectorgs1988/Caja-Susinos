@@ -211,6 +211,7 @@ h1 {
     background: linear-gradient(180deg, #16181d 0%, #13151a 100%);
     box-shadow: var(--surface-shadow);
     overflow: hidden;
+    max-height: calc(100dvh - 24px);
 }
 
 .ticket-grab {
@@ -713,6 +714,20 @@ h1 {
         left: 10px;
         right: 10px;
         bottom: 10px;
+        max-height: calc(100dvh - 20px);
+    }
+
+    .ticket.is-open .ticket-body {
+        max-height: calc(100dvh - 190px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .ticket-list {
+        max-height: none;
+        overflow: visible;
     }
 
     .ticket-total {
