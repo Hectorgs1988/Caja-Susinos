@@ -730,42 +730,35 @@ export default function App() {
                         <p className="ticket-total">{toCurrency(totalPrice)} EUR</p>
                     </button>
 
-                    <div className="ticket-body">
-                        <ul className="ticket-list">
-                            {ticketLines.length > 0 ? (
-                                ticketLines.map((line) => (
-                                    <li key={line.id}>
-                                        <span className="name">{line.name}</span>
-                                        <span className="meta">x{line.qty}</span>
-                                        <span>{toCurrency(line.total)} EUR</span>
-                                    </li>
-                                ))
-                            ) : (
-                                <li className="empty">
-                                    <span className="name">Aun no hay productos</span>
-                                </li>
-                            )}
-                        </ul>
-
-                        <div className="ticket-actions">
-                            <button
-                                className={`ghost pay-mode-btn ${isPayingWithVale ? "is-active" : ""}`}
-                                onClick={() => setPayingWithVale((prev) => !prev)}
-                                type="button"
-                                disabled={totalItems === 0}
-                            >
-                                Pagar con vale
-                            </button>
-                            <button className="ghost" onClick={clearOrder} type="button">
-                                Vaciar
-                            </button>
-                            <button className="cta" onClick={registerOrder} type="button" disabled={totalItems === 0}>
-                                Cobrar
-                            </button>
-                        </div>
-
+                    <div className={`ticket-body ${isPayingWithVale ? "is-vale-mode" : ""}`}>
                         {isPayingWithVale && valeInfo ? (
-                            <section className="vale-summary" aria-live="polite">
+                            <section className="vale-panel" aria-live="polite">
+                                <div className="vale-panel-top">
+                                    <button
+                                        className="vale-back-btn"
+                                        onClick={() => setPayingWithVale(false)}
+                                        type="button"
+                                    >
+                                        ← Volver
+                                    </button>
+                                    <p className="vale-kicker">Pago con vale</p>
+                                </div>
+
+                                <p className="vale-total">{toCurrency(totalPrice)} EUR</p>
+
+                                <div className="vale-items-block">
+                                    <p className="vale-section-title">Resumen de articulos</p>
+                                    <ul className="ticket-list vale-ticket-list">
+                                        {ticketLines.map((line) => (
+                                            <li key={line.id}>
+                                                <span className="name">{line.name}</span>
+                                                <span className="meta">x{line.qty}</span>
+                                                <span>{toCurrency(line.total)} EUR</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
                                 <div className="vale-type-selector" role="group" aria-label="Tipo de vale">
                                     {Object.values(VALE_TYPES).map((vale) => (
                                         <button
@@ -778,10 +771,57 @@ export default function App() {
                                         </button>
                                     ))}
                                 </div>
-                                <p className="vale-total">Total: {toCurrency(totalPrice)} EUR</p>
-                                <p>{valeInfo.instruction}</p>
+
+                                <div className="ticket-actions vale-actions">
+                                    <button className="ghost" onClick={clearOrder} type="button">
+                                        Vaciar
+                                    </button>
+                                    <button className="cta" onClick={registerOrder} type="button" disabled={totalItems === 0}>
+                                        Cobrar
+                                    </button>
+                                </div>
+
+                                <section className="vale-summary">
+                                    <p className="vale-section-title">Tachar</p>
+                                    <p className="vale-instruction">{valeInfo.instruction}</p>
+                                </section>
                             </section>
-                        ) : null}
+                        ) : (
+                            <>
+                                <ul className="ticket-list">
+                                    {ticketLines.length > 0 ? (
+                                        ticketLines.map((line) => (
+                                            <li key={line.id}>
+                                                <span className="name">{line.name}</span>
+                                                <span className="meta">x{line.qty}</span>
+                                                <span>{toCurrency(line.total)} EUR</span>
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <li className="empty">
+                                            <span className="name">Aun no hay productos</span>
+                                        </li>
+                                    )}
+                                </ul>
+
+                                <div className="ticket-actions">
+                                    <button
+                                        className={`ghost pay-mode-btn ${isPayingWithVale ? "is-active" : ""}`}
+                                        onClick={() => setPayingWithVale(true)}
+                                        type="button"
+                                        disabled={totalItems === 0}
+                                    >
+                                        Pagar con vale
+                                    </button>
+                                    <button className="ghost" onClick={clearOrder} type="button">
+                                        Vaciar
+                                    </button>
+                                    <button className="cta" onClick={registerOrder} type="button" disabled={totalItems === 0}>
+                                        Cobrar
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </aside>
             ) : null}
