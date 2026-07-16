@@ -446,8 +446,8 @@ export default function App() {
                 <div className="brand-wrap">
                     <div className="brand-badge"></div>
                     <div>
-                        <p className="brand-kicker">Pena Los Mosquitos</p>
-                        <h1>Susinos del Paramo</h1>
+                        <p className="brand-kicker">Peña Los Mosquitos</p>
+                        <h1>Susinos del Páramo</h1>
                     </div>
                 </div>
                 <button
