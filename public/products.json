@@ -1,7 +1,7 @@
 {
   "bebida": [
     { "id": "cerveza", "name": "Cerveza", "price": 1.5 },
-    { "id": "refresco", "name": "Refresco", "price": 1.5 },
+    { "id": "refresco", "name": "Refresco", "price": 1.8 },
     { "id": "zumo", "name": "Zumo", "price": 1.8 },
     { "id": "batido", "name": "Batido", "price": 1.8 },
     { "id": "mosto-pequeño", "name": "Mosto pequeño", "price": 0.90 },
