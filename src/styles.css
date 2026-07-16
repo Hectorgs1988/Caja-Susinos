@@ -1,16 +1,16 @@
 :root {
-    --bg: #040506;
-    --panel: #14161a;
-    --panel-soft: #111318;
-    --line: #24272f;
-    --line-soft: #1b1e24;
-    --text: #e5e7eb;
-    --muted: #767b86;
-    --gold: #d4b437;
-    --gold-soft: #f0d45c;
-    --gold-deep: #b99619;
-    --ok-disabled: #3d404a;
-    --surface-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    --bg: #f6f2ec;
+    --panel: #ffffff;
+    --panel-soft: #eee8de;
+    --line: #e0d8cd;
+    --line-soft: #ddd5ca;
+    --text: #33343a;
+    --muted: #a39b90;
+    --gold: #d0b04d;
+    --gold-soft: #d2b24f;
+    --gold-deep: #b99831;
+    --ok-disabled: #d8d6d3;
+    --surface-shadow: 0 16px 40px rgba(122, 104, 77, 0.14);
 }
 
 * {
@@ -23,8 +23,8 @@ body {
     font-family: "DIN Condensed", "Oswald", "Arial Narrow", sans-serif;
     color: var(--text);
     background:
-        radial-gradient(1000px 460px at 50% 100%, rgba(212, 180, 55, 0.11) 0%, rgba(212, 180, 55, 0) 70%),
-        linear-gradient(180deg, #090b0e 0%, #050608 46%, #030406 100%);
+        radial-gradient(1000px 560px at 50% 100%, rgba(208, 176, 77, 0.1) 0%, rgba(208, 176, 77, 0) 72%),
+        linear-gradient(180deg, #f8f4ee 0%, #f3eee6 100%);
 }
 
 #root {
@@ -32,10 +32,10 @@ body {
 }
 
 .app-shell {
-    max-width: 680px;
+    max-width: 760px;
     margin: 0 auto;
     min-height: 100vh;
-    padding: 12px 16px 208px;
+    padding: 18px 16px 220px;
 }
 
 .topbar {
@@ -43,9 +43,8 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    padding: 12px 10px;
-    border: 1px solid #382d0f;
-    background: linear-gradient(180deg, #111215, #0d0f12);
+    padding: 8px 0 16px;
+    border-bottom: 1px solid #e4dbcf;
 }
 
 .brand-wrap {
@@ -55,96 +54,96 @@ body {
 }
 
 .brand-badge {
-    width: 52px;
-    height: 52px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background:
-        url("/mosquito.png") center/cover no-repeat,
-        linear-gradient(180deg, #f3dc74, #caac2b);
+        url("/mosquito.png") center/70% no-repeat,
+        linear-gradient(180deg, #faf8f3, #ece4d6);
     color: transparent;
     display: grid;
     place-content: center;
     font-size: 1.05rem;
     font-weight: 800;
     letter-spacing: 0.03em;
-    border: 1px solid #83691b;
+    border: 1px solid #dbd1c2;
 }
 
 .brand-kicker {
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.68rem;
-    color: #c4a942;
+    letter-spacing: 0.22em;
+    font-size: 0.5rem;
+    color: #a29a8d;
 }
 
 h1 {
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
-    font-size: 1.7rem;
-    color: var(--gold-soft);
+    letter-spacing: -0.01em;
+    font-size: 1.5rem;
+    color: #34353a;
     line-height: 1;
 }
 
 .admin-btn {
-    border: 1px solid #3d4048;
-    background: #16181d;
-    color: #e9eaed;
-    border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 1rem;
+    border: 1px solid #ddd3c7;
+    background: rgba(255, 255, 255, 0.7);
+    color: #35363b;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.88rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
 }
 
 .content {
-    padding-top: 14px;
+    padding-top: 10px;
 }
 
 .segment {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    border-bottom: 1px solid #282b34;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #e4dbcf;
 }
 
 .segment-btn {
     border: none;
     background: transparent;
-    color: #6f7480;
+    color: #b4aba0;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 1.45rem;
+    letter-spacing: 0.02em;
+    font-size: 1.05rem;
     font-weight: 700;
-    padding: 10px 4px 12px;
-    border-bottom: 3px solid transparent;
+    padding: 10px 0 12px;
+    border-bottom: 2px solid transparent;
 }
 
 .segment-btn.is-active {
-    color: var(--gold-soft);
+    color: #3a3b40;
     border-bottom-color: var(--gold-soft);
 }
 
 .product-grid {
-    margin-top: 14px;
+    margin-top: 12px;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
 }
 
 .product-card {
     border: 1px solid var(--line-soft);
-    border-radius: 18px;
-    background: linear-gradient(145deg, #17191e 0%, #111319 100%);
-    min-height: 92px;
-    padding: 9px;
+    border-radius: 6px;
+    background: #e9e4dc;
+    min-height: 86px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     cursor: pointer;
-    transition: border-color 0.14s ease, transform 0.14s ease;
+    transition: border-color 0.14s ease, background-color 0.14s ease, transform 0.14s ease;
 }
 
 .product-card:active {
@@ -152,17 +151,19 @@ h1 {
 }
 
 .product-card.has-qty {
-    border-color: #715a1c;
-    box-shadow: inset 0 0 0 1px rgba(212, 180, 55, 0.42);
+    border-color: #d3b458;
+    background: #fffdf9;
+    box-shadow: none;
 }
 
 .product-name {
     margin: 0;
-    font-size: 1.5rem;
-    line-height: 0.95;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    color: #e3e5e8;
+    font-family: "Inter", sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #37383d;
 }
 
 .product-price-row {
@@ -174,29 +175,30 @@ h1 {
 
 .product-price {
     margin: 0;
-    font-size: 2.45rem;
+    font-size: 2.1rem;
     line-height: 0.9;
     font-weight: 700;
-    color: var(--gold-soft);
+    color: #37383d;
 }
 
 .product-unit {
-    font-size: 0.9rem;
-    color: var(--gold-deep);
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-size: 0.82rem;
+    color: #45464b;
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 .qty-chip {
     margin-left: auto;
     min-width: 30px;
-    border-radius: 999px;
-    padding: 2px 8px;
+    border-radius: 3px;
+    padding: 3px 7px;
     text-align: center;
-    font-size: 0.9rem;
+    font-family: "Inter", sans-serif;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: #101216;
-    background: #ddbf4d;
+    color: #ffffff;
+    background: #d0b04d;
 }
 
 .ticket {
@@ -204,14 +206,15 @@ h1 {
     left: 0;
     right: 0;
     bottom: 12px;
-    max-width: 680px;
+    max-width: 760px;
     margin: 0 auto;
-    border-radius: 24px;
-    border: 1px solid #2a2e36;
-    background: linear-gradient(180deg, #16181d 0%, #13151a 100%);
+    border-radius: 18px 18px 0 0;
+    border: 1px solid #ece5db;
+    background: rgba(255, 255, 255, 0.96);
     box-shadow: var(--surface-shadow);
     overflow: hidden;
     max-height: calc(100dvh - 24px);
+    backdrop-filter: blur(10px);
 }
 
 .ticket-grab {
@@ -223,11 +226,11 @@ h1 {
 
 .ticket-grab span {
     display: block;
-    width: 56px;
-    height: 5px;
+    width: 44px;
+    height: 4px;
     margin: 0 auto;
     border-radius: 999px;
-    background: #4b4e57;
+    background: #dddcd8;
 }
 
 .ticket-summary {
@@ -239,31 +242,31 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #242730;
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid #ece7de;
 }
 
 .ticket-kicker {
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 0.13em;
-    font-size: 0.76rem;
-    color: #c6ab45;
+    letter-spacing: 0.18em;
+    font-size: 0.62rem;
+    color: #b2aba1;
 }
 
 .ticket-items {
     margin: 4px 0 0;
-    color: #6f7480;
-    font-size: 0.78rem;
+    color: var(--gold-deep);
+    font-size: 0.98rem;
     font-family: "Inter", sans-serif;
     font-weight: 600;
 }
 
 .ticket-total {
     margin: 0;
-    font-size: 2.15rem;
-    font-weight: 700;
-    color: var(--gold);
+    font-size: 3.15rem;
+    font-weight: 800;
+    color: #303238;
     line-height: 0.9;
 }
 
@@ -271,25 +274,21 @@ h1 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.28s ease;
-    padding: 0 16px;
+    padding: 0 20px;
 }
 
 .ticket.is-open .ticket-body {
-    max-height: 360px;
-    padding-bottom: 14px;
-}
-
-.ticket.is-open .ticket-body.is-vale-mode {
-    max-height: calc(100dvh - 138px);
+    max-height: calc(100dvh - 170px);
     overflow-y: auto;
-    padding-bottom: 16px;
+    padding-bottom: 18px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .ticket-list {
     margin: 12px 0;
     padding: 0;
     list-style: none;
-    max-height: 158px;
+    max-height: 190px;
     overflow: auto;
 }
 
@@ -299,181 +298,152 @@ h1 {
     gap: 10px;
     align-items: center;
     margin-bottom: 8px;
-    background: #0f1217;
-    border: 1px solid #21242d;
-    border-radius: 11px;
-    padding: 8px 10px;
+    background: #f7f5f1;
+    border: 1px solid #e5dfd6;
+    border-radius: 6px;
+    padding: 10px 12px;
     font-family: "Inter", sans-serif;
-    font-size: 0.84rem;
-    font-weight: 600;
-    color: #d8dae0;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #3c3d42;
 }
 
 .ticket-list .meta {
-    color: #7f8692;
+    color: #888279;
 }
 
 .ticket-list .empty {
     grid-template-columns: 1fr;
     justify-items: center;
-    color: #6e7380;
+    color: #8f887d;
     padding: 14px 8px;
 }
 
 .ticket-actions {
-    margin-top: 10px;
+    margin-top: 12px;
     display: grid;
-    grid-template-columns: 1.2fr 0.9fr 0.9fr;
+    grid-template-columns: 1.55fr 0.85fr;
     gap: 8px;
 }
 
 .pay-mode-btn.is-active {
-    border-color: #8f7527;
-    color: #e5c452;
-    background: #1b1608;
+    border-color: #d3b458;
+    color: #b79226;
+    background: #fffaf0;
 }
 
 .vale-summary {
-    margin-top: 9px;
-    border: 1px solid #5f4e1f;
-    border-radius: 12px;
-    background: linear-gradient(180deg, rgba(202, 167, 47, 0.18), rgba(17, 15, 9, 0.75));
-    padding: 14px 16px;
+    margin-top: 2px;
+    border: 1px solid #dfd7ca;
+    border-radius: 8px;
+    background: #f1ede7;
+    padding: 12px;
     display: grid;
     gap: 8px;
-}
-
-.vale-panel {
-    display: grid;
-    gap: 12px;
-    padding-top: 12px;
-}
-
-.vale-panel-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.vale-back-btn {
-    border: 1px solid #3e444f;
-    border-radius: 999px;
-    background: #171a20;
-    color: #eceef2;
-    padding: 8px 14px;
-    font-family: "Inter", sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
 }
 
 .vale-kicker,
 .vale-section-title {
     margin: 0;
     font-family: "Inter", sans-serif;
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #c8aa40;
-}
-
-.vale-total {
-    margin: 0;
-    font-size: 3rem;
-    line-height: 0.9;
-    font-weight: 800;
-    color: #f1d24f;
-}
-
-.vale-items-block {
-    display: grid;
-    gap: 8px;
-}
-
-.vale-ticket-list {
-    margin: 0;
-    max-height: none;
-}
-
-.vale-actions {
-    margin-top: 0;
-    grid-template-columns: 1fr 1fr;
-}
-
-.vale-instruction {
-    margin: 0;
-    font-size: 1.7rem;
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    color: #f8efcf;
+    color: #a6924a;
 }
 
 .vale-type-selector {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    margin-bottom: 4px;
 }
 
 .vale-type-btn {
-    border: 1px solid #665523;
-    border-radius: 10px;
-    background: rgba(24, 20, 11, 0.72);
-    color: #d8c88f;
-    padding: 8px 6px;
+    border: 1px solid #dcc382;
+    border-radius: 4px;
+    background: #f5f2ed;
+    color: #d0b04d;
+    padding: 12px 6px;
     font-family: "Inter", sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.82rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
 
 .vale-type-btn.is-active {
-    background: linear-gradient(180deg, #eed363 0%, #c9a72f 100%);
-    border-color: #a5851f;
-    color: #191408;
+    background: #fffdf8;
+    border-color: #d3b458;
+    color: #be9c30;
 }
 
 .vale-summary p {
     margin: 0;
     font-family: "Inter", sans-serif;
-    font-size: 0.8rem;
-    color: #e6ddbe;
+    font-size: 0.82rem;
+    color: #686156;
+}
+
+.vale-inline-copy {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+.vale-inline-copy strong {
+    color: #3a3b40;
+}
+
+.vale-bullet {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    background: var(--gold);
 }
 
 .ghost,
 .cta {
-    border: none;
-    border-radius: 14px;
-    padding: 10px 8px;
-    font-size: 1.2rem;
+    border-radius: 4px;
+    padding: 14px 12px;
+    font-size: 1.05rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     cursor: pointer;
 }
 
 .ghost {
-    background: #181b22;
-    color: #5f6470;
-    border: 1px solid #242834;
+    background: #f8f7f5;
+    color: #8a847d;
+    border: 1px solid #e5ddd1;
 }
 
 .cta {
-    background: #4a4d59;
-    color: #8e95a5;
+    border: 1px solid #d0b04d;
+    background: #cdb04d;
+    color: #ffffff;
 }
 
 .cta:not(:disabled) {
-    background: linear-gradient(180deg, #eed363 0%, #c9a72f 100%);
-    color: #18140a;
+    background: #d0b04d;
+    color: #ffffff;
 }
 
 .cta:disabled {
     background: var(--ok-disabled);
-    color: #737988;
+    border-color: var(--ok-disabled);
+    color: #fafafa;
+}
+
+.ticket-primary {
+    width: 100%;
+    margin-top: 6px;
+    padding-block: 18px;
+    font-size: 1.25rem;
 }
 
 .admin-panel {
@@ -700,7 +670,7 @@ h1 {
 .auth-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(2, 3, 5, 0.8);
+    background: rgba(78, 66, 47, 0.24);
     display: grid;
     place-items: center;
     z-index: 40;
@@ -709,9 +679,9 @@ h1 {
 
 .auth-card {
     width: min(420px, 100%);
-    border: 1px solid #313744;
+    border: 1px solid #ddd5ca;
     border-radius: 16px;
-    background: linear-gradient(180deg, #11141a 0%, #0d1015 100%);
+    background: #ffffff;
     padding: 14px;
 }
 
@@ -719,14 +689,14 @@ h1 {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--gold-soft);
+    color: #3b3d43;
 }
 
 .auth-card p {
     margin: 6px 0 12px;
     font-family: "Inter", sans-serif;
     font-size: 0.83rem;
-    color: #99a0ae;
+    color: #8e877d;
 }
 
 .auth-card form {
@@ -750,52 +720,45 @@ h1 {
 
 @media (max-width: 560px) {
     .app-shell {
-        padding: 8px 10px 198px;
+        padding: 12px 12px 188px;
     }
 
     .brand-badge {
-        width: 46px;
-        height: 46px;
+        width: 34px;
+        height: 34px;
     }
 
     h1 {
-        font-size: 1.35rem;
+        font-size: 1.2rem;
     }
 
     .segment-btn {
-        font-size: 1.25rem;
+        font-size: 0.95rem;
         padding-bottom: 10px;
     }
 
     .product-name {
-        font-size: 1.35rem;
+        font-size: 0.85rem;
     }
 
     .product-price {
-        font-size: 2.1rem;
+        font-size: 1.85rem;
     }
 
     .product-unit {
-        font-size: 0.82rem;
+        font-size: 0.74rem;
     }
 
     .ticket {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
+        left: 12px;
+        right: 12px;
+        bottom: 0;
         max-height: calc(100dvh - 20px);
+        border-radius: 18px 18px 0 0;
     }
 
     .ticket.is-open .ticket-body {
-        max-height: calc(100dvh - 190px);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-        padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-    }
-
-    .ticket.is-open .ticket-body.is-vale-mode {
-        max-height: calc(100dvh - 140px);
+        max-height: calc(100dvh - 172px);
         padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     }
 
@@ -805,33 +768,25 @@ h1 {
     }
 
     .ticket-total {
-        font-size: 1.95rem;
+        font-size: 3rem;
     }
 
     .ghost,
     .cta {
-        font-size: 1.05rem;
+        font-size: 0.94rem;
     }
 
     .ticket-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.6fr 0.9fr;
     }
 
-    .vale-actions {
-        grid-template-columns: 1fr;
-    }
-
-    .vale-total {
-        font-size: 3.5rem;
-    }
-
-    .vale-instruction {
-        font-size: 2rem;
-    }
-
-    .vale-back-btn,
     .vale-type-btn {
-        min-height: 52px;
+        min-height: 42px;
+        font-size: 0.76rem;
+    }
+
+    .ticket-primary {
+        font-size: 1.15rem;
     }
 
     .admin-add-row {
