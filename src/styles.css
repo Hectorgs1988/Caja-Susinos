@@ -279,6 +279,12 @@ h1 {
     padding-bottom: 14px;
 }
 
+.ticket.is-open .ticket-body.is-vale-mode {
+    max-height: calc(100dvh - 138px);
+    overflow-y: auto;
+    padding-bottom: 16px;
+}
+
 .ticket-list {
     margin: 12px 0;
     padding: 0;
@@ -332,9 +338,76 @@ h1 {
     border: 1px solid #5f4e1f;
     border-radius: 12px;
     background: linear-gradient(180deg, rgba(202, 167, 47, 0.18), rgba(17, 15, 9, 0.75));
-    padding: 8px 10px;
+    padding: 14px 16px;
     display: grid;
-    gap: 4px;
+    gap: 8px;
+}
+
+.vale-panel {
+    display: grid;
+    gap: 12px;
+    padding-top: 12px;
+}
+
+.vale-panel-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.vale-back-btn {
+    border: 1px solid #3e444f;
+    border-radius: 999px;
+    background: #171a20;
+    color: #eceef2;
+    padding: 8px 14px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.vale-kicker,
+.vale-section-title {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #c8aa40;
+}
+
+.vale-total {
+    margin: 0;
+    font-size: 3rem;
+    line-height: 0.9;
+    font-weight: 800;
+    color: #f1d24f;
+}
+
+.vale-items-block {
+    display: grid;
+    gap: 8px;
+}
+
+.vale-ticket-list {
+    margin: 0;
+    max-height: none;
+}
+
+.vale-actions {
+    margin-top: 0;
+    grid-template-columns: 1fr 1fr;
+}
+
+.vale-instruction {
+    margin: 0;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: #f8efcf;
 }
 
 .vale-type-selector {
@@ -368,10 +441,6 @@ h1 {
     font-family: "Inter", sans-serif;
     font-size: 0.8rem;
     color: #e6ddbe;
-}
-
-.vale-summary strong {
-    color: #f4d669;
 }
 
 .ghost,
@@ -725,6 +794,11 @@ h1 {
         padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
     }
 
+    .ticket.is-open .ticket-body.is-vale-mode {
+        max-height: calc(100dvh - 140px);
+        padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+
     .ticket-list {
         max-height: none;
         overflow: visible;
@@ -741,6 +815,23 @@ h1 {
 
     .ticket-actions {
         grid-template-columns: 1fr;
+    }
+
+    .vale-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .vale-total {
+        font-size: 3.5rem;
+    }
+
+    .vale-instruction {
+        font-size: 2rem;
+    }
+
+    .vale-back-btn,
+    .vale-type-btn {
+        min-height: 52px;
     }
 
     .admin-add-row {
