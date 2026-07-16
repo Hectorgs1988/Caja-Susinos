@@ -23,6 +23,28 @@ const ORDERS_STORAGE_KEY = "caja.orders.v1";
 const ADMIN_SESSION_KEY = "caja.admin.auth.v1";
 const ADMIN_USER = import.meta.env.VITE_ADMIN_USER || "admin";
 const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS || "susinos123";
+const VALE_TYPES = {
+    "24": {
+        id: "24",
+        label: "Vale 24 EUR",
+        rowsPerVale: 16,
+        rowSlots: [
+            { value: 30, count: 4 },
+            { value: 10, count: 2 },
+            { value: 5, count: 2 },
+        ],
+    },
+    "12": {
+        id: "12",
+        label: "Vale 12 EUR",
+        rowsPerVale: 10,
+        rowSlots: [
+            { value: 20, count: 5 },
+            { value: 10, count: 1 },
+            { value: 5, count: 2 },
+        ],
+    },
+};
 
 function normalizeProducts(source) {
     if (!source || !Array.isArray(source.bebida) || !Array.isArray(source.comida)) {
@@ -75,6 +97,41 @@ function toDateTime(value) {
     });
 }
 
+function getRowValue(rowSlots) {
+    return rowSlots.reduce((total, slot) => total + slot.value * slot.count, 0);
+}
+
+function getRowBreakdown(targetCents, rowSlots) {
+    let remaining = targetCents;
+
+    const items = rowSlots.map((slot, index) => {
+        const isLastSlot = index === rowSlots.length - 1;
+        const count = Math.min(
+            slot.count,
+            isLastSlot ? Math.ceil(remaining / slot.value) : Math.floor(remaining / slot.value)
+        );
+
+        remaining -= count * slot.value;
+
+        return {
+            value: slot.value,
+            count,
+        };
+    });
+
+    return {
+        items,
+        coveredCents: items.reduce((total, item) => total + item.value * item.count, 0),
+    };
+}
+
+function formatBreakdownText(breakdown) {
+    return breakdown.items
+        .filter((item) => item.count > 0)
+        .map((item) => `${item.count} de ${item.value}`)
+        .join(" + ");
+}
+
 export default function App() {
     const [category, setCategory] = useState("bebida");
     const [isTicketOpen, setTicketOpen] = useState(false);
@@ -100,6 +157,8 @@ export default function App() {
         category: "bebida",
     });
     const [editingById, setEditingById] = useState({});
+    const [isPayingWithVale, setPayingWithVale] = useState(false);
+    const [selectedValeType, setSelectedValeType] = useState("24");
 
     useEffect(() => {
         let isMounted = true;
@@ -198,6 +257,31 @@ export default function App() {
         );
     }, [orders]);
 
+    const activeVale = VALE_TYPES[selectedValeType];
+
+    const valeInfo = useMemo(() => {
+        if (totalPrice <= 0 || !activeVale) return null;
+
+        const totalCents = Math.round(totalPrice * 100);
+        const targetCents = Math.ceil(totalCents / 5) * 5;
+        const rowValueCents = getRowValue(activeVale.rowSlots);
+        const fullRows = Math.floor(targetCents / rowValueCents);
+        const partialRowCents = targetCents - fullRows * rowValueCents;
+        const partialBreakdown = partialRowCents > 0 ? getRowBreakdown(partialRowCents, activeVale.rowSlots) : null;
+        const rowsToCross = fullRows + (partialBreakdown ? 1 : 0);
+        const partialText = partialBreakdown ? formatBreakdownText(partialBreakdown) : "";
+        const instruction = fullRows > 0 && partialText
+            ? `Tacha ${fullRows} ${fullRows === 1 ? "fila" : "filas"} + ${partialText}.`
+            : partialText
+              ? `Tacha ${partialText}.`
+              : `Tacha ${rowsToCross} ${rowsToCross === 1 ? "fila" : "filas"}.`;
+
+        return {
+            instruction,
+            label: activeVale.label,
+        };
+    }, [activeVale, totalPrice]);
+
     function addProduct(productId) {
         setQtyById((prev) => ({
             ...prev,
@@ -207,6 +291,7 @@ export default function App() {
 
     function clearOrder() {
         setQtyById({});
+        setPayingWithVale(false);
     }
 
     function registerOrder() {
@@ -228,6 +313,7 @@ export default function App() {
 
         setOrders((prev) => [order, ...prev]);
         setQtyById({});
+        setPayingWithVale(false);
         setTicketOpen(false);
         alert(`Comanda registrada: ${toCurrency(order.total)} EUR`);
     }
@@ -662,6 +748,14 @@ export default function App() {
                         </ul>
 
                         <div className="ticket-actions">
+                            <button
+                                className={`ghost pay-mode-btn ${isPayingWithVale ? "is-active" : ""}`}
+                                onClick={() => setPayingWithVale((prev) => !prev)}
+                                type="button"
+                                disabled={totalItems === 0}
+                            >
+                                Pagar con vale
+                            </button>
                             <button className="ghost" onClick={clearOrder} type="button">
                                 Vaciar
                             </button>
@@ -669,6 +763,25 @@ export default function App() {
                                 Cobrar
                             </button>
                         </div>
+
+                        {isPayingWithVale && valeInfo ? (
+                            <section className="vale-summary" aria-live="polite">
+                                <div className="vale-type-selector" role="group" aria-label="Tipo de vale">
+                                    {Object.values(VALE_TYPES).map((vale) => (
+                                        <button
+                                            key={vale.id}
+                                            className={`vale-type-btn ${selectedValeType === vale.id ? "is-active" : ""}`}
+                                            onClick={() => setSelectedValeType(vale.id)}
+                                            type="button"
+                                        >
+                                            {vale.label}
+                                        </button>
+                                    ))}
+                                </div>
+                                <p className="vale-total">Total: {toCurrency(totalPrice)} EUR</p>
+                                <p>{valeInfo.instruction}</p>
+                            </section>
+                        ) : null}
                     </div>
                 </aside>
             ) : null}
