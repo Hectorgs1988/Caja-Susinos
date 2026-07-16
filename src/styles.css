@@ -316,8 +316,61 @@ h1 {
 .ticket-actions {
     margin-top: 10px;
     display: grid;
+    grid-template-columns: 1.2fr 0.9fr 0.9fr;
+    gap: 8px;
+}
+
+.pay-mode-btn.is-active {
+    border-color: #8f7527;
+    color: #e5c452;
+    background: #1b1608;
+}
+
+.vale-summary {
+    margin-top: 9px;
+    border: 1px solid #5f4e1f;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(202, 167, 47, 0.18), rgba(17, 15, 9, 0.75));
+    padding: 8px 10px;
+    display: grid;
+    gap: 4px;
+}
+
+.vale-type-selector {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    margin-bottom: 4px;
+}
+
+.vale-type-btn {
+    border: 1px solid #665523;
+    border-radius: 10px;
+    background: rgba(24, 20, 11, 0.72);
+    color: #d8c88f;
+    padding: 8px 6px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.vale-type-btn.is-active {
+    background: linear-gradient(180deg, #eed363 0%, #c9a72f 100%);
+    border-color: #a5851f;
+    color: #191408;
+}
+
+.vale-summary p {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    color: #e6ddbe;
+}
+
+.vale-summary strong {
+    color: #f4d669;
 }
 
 .ghost,
@@ -669,6 +722,10 @@ h1 {
     .ghost,
     .cta {
         font-size: 1.05rem;
+    }
+
+    .ticket-actions {
+        grid-template-columns: 1fr;
     }
 
     .admin-add-row {
