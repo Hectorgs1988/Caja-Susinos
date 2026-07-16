@@ -23,8 +23,8 @@ const ORDERS_STORAGE_KEY = "caja.orders.v1";
 const ADMIN_SESSION_KEY = "caja.admin.auth.v1";
 const ADMIN_USER = import.meta.env.VITE_ADMIN_USER || "admin";
 const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS || "susinos123";
-const VALE_TYPES = {
-    "24": {
+const VALE_TYPES = [
+    {
         id: "24",
         label: "Vale 24 EUR",
         rowsPerVale: 16,
@@ -34,7 +34,7 @@ const VALE_TYPES = {
             { value: 5, count: 2 },
         ],
     },
-    "12": {
+    {
         id: "12",
         label: "Vale 12 EUR",
         rowsPerVale: 10,
@@ -44,7 +44,7 @@ const VALE_TYPES = {
             { value: 5, count: 2 },
         ],
     },
-};
+];
 
 function normalizeProducts(source) {
     if (!source || !Array.isArray(source.bebida) || !Array.isArray(source.comida)) {
@@ -130,6 +130,13 @@ function formatBreakdownText(breakdown) {
         .filter((item) => item.count > 0)
         .map((item) => `${item.count} de ${item.value}`)
         .join(" + ");
+}
+
+function toUpperLabel(value) {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
 }
 
 export default function App() {
@@ -257,7 +264,7 @@ export default function App() {
         );
     }, [orders]);
 
-    const activeVale = VALE_TYPES[selectedValeType];
+    const activeVale = VALE_TYPES.find((vale) => vale.id === selectedValeType);
 
     const valeInfo = useMemo(() => {
         if (totalPrice <= 0 || !activeVale) return null;
@@ -691,7 +698,7 @@ export default function App() {
                                         onClick={() => addProduct(product.id)}
                                         type="button"
                                     >
-                                        <p className="product-name">{product.name}</p>
+                                        <p className="product-name">{toUpperLabel(product.name)}</p>
                                         <div className="product-price-row">
                                             <p className="product-price">{toCurrency(product.price)}</p>
                                             <span className="product-unit">EUR</span>
@@ -732,38 +739,13 @@ export default function App() {
 
                     <div className={`ticket-body ${isPayingWithVale ? "is-vale-mode" : ""}`}>
                         {isPayingWithVale && valeInfo ? (
-                            <section className="vale-panel" aria-live="polite">
-                                <div className="vale-panel-top">
-                                    <button
-                                        className="vale-back-btn"
-                                        onClick={() => setPayingWithVale(false)}
-                                        type="button"
-                                    >
-                                        ← Volver
-                                    </button>
-                                    <p className="vale-kicker">Pago con vale</p>
-                                </div>
-
-                                <p className="vale-total">{toCurrency(totalPrice)} EUR</p>
-
-                                <div className="vale-items-block">
-                                    <p className="vale-section-title">Resumen de articulos</p>
-                                    <ul className="ticket-list vale-ticket-list">
-                                        {ticketLines.map((line) => (
-                                            <li key={line.id}>
-                                                <span className="name">{line.name}</span>
-                                                <span className="meta">x{line.qty}</span>
-                                                <span>{toCurrency(line.total)} EUR</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
+                            <section className="vale-summary" aria-live="polite">
                                 <div className="vale-type-selector" role="group" aria-label="Tipo de vale">
-                                    {Object.values(VALE_TYPES).map((vale) => (
+                                    {VALE_TYPES.map((vale) => (
                                         <button
                                             key={vale.id}
-                                            className={`vale-type-btn ${selectedValeType === vale.id ? "is-active" : ""}`}
+                                            className={`vale-type-btn ${selectedValeType === vale.id ? "is-active" : ""}`
+                                            }
                                             onClick={() => setSelectedValeType(vale.id)}
                                             type="button"
                                         >
@@ -771,57 +753,48 @@ export default function App() {
                                         </button>
                                     ))}
                                 </div>
-
-                                <div className="ticket-actions vale-actions">
-                                    <button className="ghost" onClick={clearOrder} type="button">
-                                        Vaciar
-                                    </button>
-                                    <button className="cta" onClick={registerOrder} type="button" disabled={totalItems === 0}>
-                                        Cobrar
-                                    </button>
-                                </div>
-
-                                <section className="vale-summary">
-                                    <p className="vale-section-title">Tachar</p>
-                                    <p className="vale-instruction">{valeInfo.instruction}</p>
-                                </section>
+                                <p className="vale-inline-copy">
+                                    <span className="vale-bullet" aria-hidden="true" />
+                                    <span>
+                                        Total: <strong>{toCurrency(totalPrice)} EUR</strong> - {valeInfo.instruction}
+                                    </span>
+                                </p>
                             </section>
-                        ) : (
-                            <>
-                                <ul className="ticket-list">
-                                    {ticketLines.length > 0 ? (
-                                        ticketLines.map((line) => (
-                                            <li key={line.id}>
-                                                <span className="name">{line.name}</span>
-                                                <span className="meta">x{line.qty}</span>
-                                                <span>{toCurrency(line.total)} EUR</span>
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="empty">
-                                            <span className="name">Aun no hay productos</span>
-                                        </li>
-                                    )}
-                                </ul>
+                        ) : null}
 
-                                <div className="ticket-actions">
-                                    <button
-                                        className={`ghost pay-mode-btn ${isPayingWithVale ? "is-active" : ""}`}
-                                        onClick={() => setPayingWithVale(true)}
-                                        type="button"
-                                        disabled={totalItems === 0}
-                                    >
-                                        Pagar con vale
-                                    </button>
-                                    <button className="ghost" onClick={clearOrder} type="button">
-                                        Vaciar
-                                    </button>
-                                    <button className="cta" onClick={registerOrder} type="button" disabled={totalItems === 0}>
-                                        Cobrar
-                                    </button>
-                                </div>
-                            </>
-                        )}
+                        <ul className="ticket-list">
+                            {ticketLines.length > 0 ? (
+                                ticketLines.map((line) => (
+                                    <li key={line.id}>
+                                        <span className="name">{line.name}</span>
+                                        <span className="meta">x{line.qty}</span>
+                                        <span>{toCurrency(line.total)} EUR</span>
+                                    </li>
+                                ))
+                            ) : (
+                                <li className="empty">
+                                    <span className="name">Aun no hay productos</span>
+                                </li>
+                            )}
+                        </ul>
+
+                        <button className="cta ticket-primary" onClick={registerOrder} type="button" disabled={totalItems === 0}>
+                            Cobrar
+                        </button>
+
+                        <div className="ticket-actions">
+                            <button
+                                className={`ghost pay-mode-btn ${isPayingWithVale ? "is-active" : ""}`}
+                                onClick={() => setPayingWithVale((prev) => !prev)}
+                                type="button"
+                                disabled={totalItems === 0}
+                            >
+                                Pagar con vale
+                            </button>
+                            <button className="ghost" onClick={clearOrder} type="button">
+                                Vaciar
+                            </button>
+                        </div>
                     </div>
                 </aside>
             ) : null}
