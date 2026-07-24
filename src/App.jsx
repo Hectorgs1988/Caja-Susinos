@@ -301,6 +301,29 @@ export default function App() {
         setPayingWithVale(false);
     }
 
+    function decrementProduct(productId) {
+        setQtyById((prev) => {
+            const currentQty = prev[productId] || 0;
+            if (currentQty <= 1) {
+                const next = { ...prev };
+                delete next[productId];
+                return next;
+            }
+
+            return {
+                ...prev,
+                [productId]: currentQty - 1,
+            };
+        });
+    }
+
+    function incrementProduct(productId) {
+        setQtyById((prev) => ({
+            ...prev,
+            [productId]: (prev[productId] || 0) + 1,
+        }));
+    }
+
     function registerOrder() {
         if (totalItems === 0) return;
 
@@ -769,6 +792,24 @@ export default function App() {
                                         <span className="name">{line.name}</span>
                                         <span className="meta">x{line.qty}</span>
                                         <span>{toCurrency(line.total)} EUR</span>
+                                        <div className="ticket-qty-actions" role="group" aria-label={`Ajustar cantidad de ${line.name}`}>
+                                            <button
+                                                className="ticket-qty-btn"
+                                                onClick={() => decrementProduct(line.id)}
+                                                type="button"
+                                                aria-label={`Restar una unidad de ${line.name}`}
+                                            >
+                                                -
+                                            </button>
+                                            <button
+                                                className="ticket-qty-btn"
+                                                onClick={() => incrementProduct(line.id)}
+                                                type="button"
+                                                aria-label={`Sumar una unidad de ${line.name}`}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
                                     </li>
                                 ))
                             ) : (

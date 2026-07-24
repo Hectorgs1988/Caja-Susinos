@@ -294,7 +294,7 @@ h1 {
 
 .ticket-list li {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto auto;
     gap: 10px;
     align-items: center;
     margin-bottom: 8px;
@@ -310,6 +310,30 @@ h1 {
 
 .ticket-list .meta {
     color: #888279;
+}
+
+.ticket-qty-actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 6px;
+}
+
+.ticket-qty-btn {
+    border: 1px solid #ddcfb8;
+    background: #fdfaf4;
+    color: #8f7b4e;
+    border-radius: 4px;
+    min-width: 34px;
+    height: 30px;
+    padding: 0 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.ticket-qty-btn:active {
+    transform: scale(0.97);
 }
 
 .ticket-list .empty {
