@@ -26,6 +26,7 @@
     { "id": "mojito-grande", "name": "Mojito grande", "price": 5.40 }
   ],
   "comida": [
+    { "id": "fideua", "name": "Fideuá", "price": 4.5 },
     { "id": "montadito-jamon", "name": "Montadito jamón", "price": 3.0 },
     { "id": "montadito-chorizo", "name": "Montadito chorizo", "price": 1.5 },
     { "id": "montadito-lomo-bacon-queso", "name": "Montadito lomo bacon queso", "price": 3.0 },
